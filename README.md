@@ -9,3 +9,5 @@ The contract has been extended so that if the lending and borrowing countries mu
 ![extended contract](https://raw.githubusercontent.com/sanaz-y/cordaExample/release-V1/Screen%20Shot%202017-10-24%20at%2017.08.49.png)
 
 Because in the above request the lending and borrowing countries are the same, the transaction is failed and will not be added to the ledger.
+
+![transaction failed](https://raw.githubusercontent.com/sanaz-y/cordaExample/release-V1/Screen%20Shot%202017-10-24%20at%2017.08.59.png)
