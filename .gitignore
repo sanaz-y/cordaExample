@@ -10,9 +10,7 @@ tags
 
 .gradle
 
-# General build files
-**/build/*
-!docs/build/*
+# General build files   */build/*    !docs/build/*
 
 lib/dokka.jar
 
