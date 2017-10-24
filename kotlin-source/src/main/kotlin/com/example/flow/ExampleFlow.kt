@@ -32,7 +32,9 @@ object ExampleFlow {
     @InitiatingFlow
     @StartableByRPC
     class Initiator(val iouValue: Int,
-                    val otherParty: Party) : FlowLogic<SignedTransaction>() {
+                    val otherParty: Party,
+                    val lCountry: String,
+                    val bCountry: String) : FlowLogic<SignedTransaction>() {
         /**
          * The progress tracker checkpoints each stage of the flow and outputs the specified messages when each
          * checkpoint is reached in the code. See the 'progressTracker.currentStep' expressions within the call() function.
@@ -71,7 +73,7 @@ object ExampleFlow {
             // Stage 1.
             progressTracker.currentStep = GENERATING_TRANSACTION
             // Generate an unsigned transaction.
-            val iouState = IOUState(iouValue, serviceHub.myInfo.legalIdentities.first(), otherParty)
+            val iouState = IOUState(iouValue, serviceHub.myInfo.legalIdentities.first(), otherParty, lCountry, bCountry)
             val txCommand = Command(IOUContract.Commands.Create(), iouState.participants.map { it.owningKey })
             val txBuilder = TransactionBuilder(notary).withItems(StateAndContract(iouState, IOU_CONTRACT_ID), txCommand)
 

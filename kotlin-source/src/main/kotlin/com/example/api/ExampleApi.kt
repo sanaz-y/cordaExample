@@ -70,7 +70,7 @@ class ExampleApi(private val rpcOps: CordaRPCOps) {
      */
     @PUT
     @Path("create-iou")
-    fun createIOU(@QueryParam("iouValue") iouValue: Int, @QueryParam("partyName") partyName: CordaX500Name?): Response {
+    fun createIOU(@QueryParam("iouValue") iouValue: Int, @QueryParam("partyName") partyName: CordaX500Name?,@QueryParam("lCountry") lCountry: String,@QueryParam("bCountry") bCountry: String): Response {
         if (iouValue <= 0 ) {
             return Response.status(BAD_REQUEST).entity("Query parameter 'iouValue' must be non-negative.\n").build()
         }
@@ -81,7 +81,7 @@ class ExampleApi(private val rpcOps: CordaRPCOps) {
                 return Response.status(BAD_REQUEST).entity("Party named $partyName cannot be found.\n").build()
 
         return try {
-            val flowHandle = rpcOps.startTrackedFlow(::Initiator, iouValue, otherParty)
+            val flowHandle = rpcOps.startTrackedFlow(::Initiator, iouValue, otherParty, lCountry, bCountry)
             flowHandle.progress.subscribe { println(">> $it") }
 
             // The line below blocks and waits for the future to resolve.

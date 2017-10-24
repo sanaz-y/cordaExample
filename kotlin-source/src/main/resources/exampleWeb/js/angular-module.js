@@ -73,7 +73,7 @@ app.controller('ModalInstanceCtrl', function ($http, $location, $uibModalInstanc
 
             $uibModalInstance.close();
 
-            const createIOUEndpoint = `${apiBaseURL}create-iou?partyName=${modalInstance.form.counterparty}&iouValue=${modalInstance.form.value}`;
+            const createIOUEndpoint = `${apiBaseURL}create-iou?partyName=${modalInstance.form.counterparty}&iouValue=${modalInstance.form.value}&lCountry=${modalInstance.form.lCountry}&bCountry=${modalInstance.form.bCountry}`;
 
             // Create PO and handle success / fail responses.
             $http.put(createIOUEndpoint).then(

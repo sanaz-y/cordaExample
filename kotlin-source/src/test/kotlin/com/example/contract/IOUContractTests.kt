@@ -24,7 +24,7 @@ class IOUContractTests {
         val iou = 1
         ledger {
             transaction {
-                output(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP) }
+                output(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP, "US","UK") }
                 fails()
                 command(MEGA_CORP_PUBKEY, MINI_CORP_PUBKEY) { IOUContract.Commands.Create() }
                 verifies()
@@ -37,8 +37,8 @@ class IOUContractTests {
         val iou = 1
         ledger {
             transaction {
-                input(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP) }
-                output(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP) }
+                input(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP, "US", "UK") }
+                output(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP,"US", "UK") }
                 command(MEGA_CORP_PUBKEY) { IOUContract.Commands.Create() }
                 `fails with`("No inputs should be consumed when issuing an IOU.")
             }
@@ -50,8 +50,8 @@ class IOUContractTests {
         val iou = 1
         ledger {
             transaction {
-                output(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP) }
-                output(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP) }
+                output(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP,"US", "UK") }
+                output(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP,"US", "UK") }
                 command(MEGA_CORP_PUBKEY, MINI_CORP_PUBKEY) { IOUContract.Commands.Create() }
                 `fails with`("Only one output state should be created.")
             }
@@ -63,7 +63,7 @@ class IOUContractTests {
         val iou = 1
         ledger {
             transaction {
-                output(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP) }
+                output(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP,"US", "UK") }
                 command(MINI_CORP_PUBKEY) { IOUContract.Commands.Create() }
                 `fails with`("All of the participants must be signers.")
             }
@@ -75,7 +75,7 @@ class IOUContractTests {
         val iou = 1
         ledger {
             transaction {
-                output(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP) }
+                output(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP,"US", "UK") }
                 command(MEGA_CORP_PUBKEY) { IOUContract.Commands.Create() }
                 `fails with`("All of the participants must be signers.")
             }
@@ -87,7 +87,7 @@ class IOUContractTests {
         val iou = 1
         ledger {
             transaction {
-                output(IOU_CONTRACT_ID) { IOUState(iou, MEGA_CORP, MEGA_CORP) }
+                output(IOU_CONTRACT_ID) { IOUState(iou, MEGA_CORP, MEGA_CORP,"US", "UK") }
                 command(MEGA_CORP_PUBKEY, MINI_CORP_PUBKEY) { IOUContract.Commands.Create() }
                 `fails with`("The lender and the borrower cannot be the same entity.")
             }
@@ -99,7 +99,7 @@ class IOUContractTests {
         val iou = -1
         ledger {
             transaction {
-                output(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP) }
+                output(IOU_CONTRACT_ID) { IOUState(iou, MINI_CORP, MEGA_CORP,"US", "UK") }
                 command(MEGA_CORP_PUBKEY, MINI_CORP_PUBKEY) { IOUContract.Commands.Create() }
                 `fails with`("The IOU's value must be non-negative.")
             }

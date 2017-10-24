@@ -22,6 +22,8 @@ import net.corda.core.schemas.QueryableState
 data class IOUState(val value: Int,
                     val lender: Party,
                     val borrower: Party,
+                    val lCountry: String,
+                    val bCountry: String,
                     override val linearId: UniqueIdentifier = UniqueIdentifier()):
         LinearState, QueryableState {
     /** The public keys of the involved parties. */
@@ -33,6 +35,8 @@ data class IOUState(val value: Int,
                     this.lender.name.toString(),
                     this.borrower.name.toString(),
                     this.value,
+                    this.lCountry,
+                    this.bCountry,
                     this.linearId.id
             )
             else -> throw IllegalArgumentException("Unrecognised schema $schema")

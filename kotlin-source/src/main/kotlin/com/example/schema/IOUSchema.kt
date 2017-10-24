@@ -31,6 +31,12 @@ object IOUSchemaV1 : MappedSchema(
             @Column(name = "value")
             var value: Int,
 
+            @Column(name = "lCountry")
+            var lCountry: String,
+
+            @Column(name = "bCountry")
+            var bCountry: String,
+
             @Column(name = "linear_id")
             var linearId: UUID
     ) : PersistentState()
